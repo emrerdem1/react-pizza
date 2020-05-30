@@ -3,6 +3,7 @@ import React from "react"
 const Pizza = ({topping, size, type, pizzaCallbackPropfromList}) => {
 
   const pizzaEdit = (topping, size, type) => {
+    console.log('pizza ' + size)
     return pizzaCallbackPropfromList(topping, size, type);
   }
   return(
