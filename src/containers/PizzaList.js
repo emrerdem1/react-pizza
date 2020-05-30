@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import Pizza from '../components/Pizza'
 class PizzaList extends Component {
-
+  constructor(props){
+    super(props)
+  }
   render() {
+    const {topping, size, radioPreference, selectedRadio} = this.props;
+    console.log(this.props)
     return (
       <table className="table table-striped">
         <thead>
@@ -15,7 +19,7 @@ class PizzaList extends Component {
         </thead>
         <tbody>
           {
-            //render Pizza here
+            <Pizza size={this.props.size} topping={this.props.topping} radioPreference={this.props.selectedRadio} />
           }
         </tbody>
       </table>
