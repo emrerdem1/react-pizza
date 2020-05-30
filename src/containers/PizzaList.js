@@ -4,9 +4,10 @@ class PizzaList extends Component {
   constructor(props){
     super(props)
   }
+  pizzaCallback = (topping, size, type) => {
+    return this.props.pizzaCallbackFromApp(topping, size, type);
+  }
   render() {
-    const {topping, size, radioPreference, selectedRadio} = this.props;
-    console.log(this.props)
     return (
       <table className="table table-striped">
         <thead>
@@ -19,7 +20,13 @@ class PizzaList extends Component {
         </thead>
         <tbody>
           {
-            <Pizza size={this.props.size} topping={this.props.topping} radioPreference={this.props.selectedRadio} />
+            //render Pizza here
+            this.props.pizzas.map( pizza => {
+              console.log(pizza.vegetarian);
+              return (
+                <Pizza topping={pizza.topping} size={pizza.size} type={pizza.type} pizzaCallbackPropfromList={this.pizzaCallback} />
+              );
+            })
           }
         </tbody>
       </table>
