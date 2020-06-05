@@ -10,30 +10,40 @@ class App extends Component {
 			editedPizza: {
 				topping: '',
 				size: '',
-				type: ''
-			}
+				vegetarian: ''
+			},
+			status: false
 		};
 	}
-
-	pizzaCallbackFunc = (topping, size, type) => {
-		return console.log(topping + ' and ' + size + ' and ' + type);
+	componentDidMount() {
+		fetch('http://localhost:3333/pizzas').then((response) => response.json()).then((data) => {
+			this.setState({
+				pizzas: data,
+				status: true
+			});
+		});
+	}
+	pizzaCallbackFunc = (topping, size, vegetarian) => {
+		return this.setState({
+			editedPizza: {
+				topping: topping,
+				size: size,
+				vegetarian: vegetarian
+			}
+		});
 	};
 	render() {
 		return (
 			<Fragment>
 				<Header />
-				<PizzaForm />
-				<PizzaList pizzas={this.state.pizzas} pizzaCallbackFromApp={this.pizzaCallbackFunc} />
+				{this.state.editedPizza.topping && <PizzaForm alterValues={this.state.editedPizza} />}
+				{this.state.status ? (
+					<PizzaList pizzas={this.state.pizzas} pizzaCallbackFromApp={this.pizzaCallbackFunc} />
+				) : (
+					<PizzaList pizzas={this.state.pizzas} />
+				)}
 			</Fragment>
 		);
-	}
-
-	componentDidMount() {
-		fetch('http://localhost:3333/pizzas').then((response) => response.json()).then((data) => {
-			this.setState({
-				pizzas: data
-			});
-		});
 	}
 }
 

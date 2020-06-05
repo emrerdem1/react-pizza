@@ -4,8 +4,9 @@ class PizzaList extends Component {
 	constructor(props) {
 		super(props);
 	}
-	pizzaCallback = (topping, size, type) => {
-		return this.props.pizzaCallbackFromApp(topping, size, type);
+
+	pizzaCallback = (topping, size, vegetarian) => {
+		return this.props.pizzaCallbackFromApp(topping, size, vegetarian);
 	};
 	render() {
 		return (
@@ -20,12 +21,13 @@ class PizzaList extends Component {
 				</thead>
 				<tbody>
 					{//render Pizza here
-					this.props.pizzas.map((pizza) => {
+					this.props.pizzas.map((pizza, index) => {
 						return (
 							<Pizza
+								key={pizza.toString() + index}
 								topping={pizza.topping}
 								size={pizza.size}
-								type={pizza.type}
+								vegetarian={pizza.vegetarian}
 								pizzaCallbackPropfromList={this.pizzaCallback}
 							/>
 						);
